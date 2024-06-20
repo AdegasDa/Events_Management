@@ -3,7 +3,7 @@
 require "../vendor/autoload.php";
 
 // Configurações do banco de dados
-$servername = "172.18.0.2";
+$servername = "127.0.0.1";
 $username = "atw";
 $password = "ATW_password1.";
 $database = "atw";
