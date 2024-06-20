@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> Login </title>
+        <!-- Stylesheet - Dashboard -->
+    	<link href="../custom/css/dashboard.css" rel="stylesheet" />
+    </head>
+    <body class="bg-secondary">
+        <div id="layoutAuthentication">
+            <div id="layoutAuthentication_content">
+                <main>
+                    <form method="post" id="login_form" name="login_form">
+                        <div class="all_screen d-md-flex justify-content-md-center align-items-md-center">
+                            <div class="login_center border rounded-3 p-md-5  bg-white shadow">
+                                <h1 class="text-center mb-5 mt-md-3 mt-4">Login</h1>
+                                <div class="mb-2 text-center">
+                                    <input type="hidden"  name="login_error" id="login_error">
+                                </div>
+                                <div class="form-group mx-auto w-75">
+                                    <input type="text" id="login_user" name="login_user" class="form-control mx-auto p-2 shadow-sm" placeholder="Email or username">
+                                </div>
+                                <div class="form-group mx-auto w-75">
+                                    <input type="password" id="login_pass" name="login_pass" class="form-control mt-3 mx-auto p-2 shadow-sm" placeholder="Senha">
+                                </div>
+                                <div class="d-flex justify-content-center mt-4">
+                                    <input type="submit" class="btn btn-primary shadow-sm w-75" id="login_submit" name="login_submit" value="Iniciar Sessão">
+                                </div>
+                                <div class="d-flex justify-content-center mt-2">
+                                    <a href="#" id="login_register" class="text-decoration-none">Don't have an account?</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </main>
+            </div>
+        </div>
+        
+        <!-- Bootstrap 5.3.3 - https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js -->
+        <script src="../assets/js/bootstrap.bundle.min.js" ></script>
+    	<!-- Font Awesome Icons - https://use.fontawesome.com/releases/v6.5.2/js/all.js -->
+        <script src="../assets/js/all.js" crossorigin="anonymous"> </script>
+        <!-- jQuery 3.7.1 - https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js -->
+        <script src="../assets/js/jquery.min.js"> </script>
+        <!-- Script - Toggle Sidebar -->
+    	<script src="../custom/js/dashboard.js"> </script>
+        <!-- Script - Custom -->
+        <script src="../controllers/login.js"></script>
+    </body>
+</html>

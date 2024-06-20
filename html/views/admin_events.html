@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <title> Events - Administration </title>
+    	<!-- Stylesheet - Dashboard -->
+    	<link href="../custom/css/dashboard.css" rel="stylesheet">
+    	<!-- Plugin - Datatable -->
+    	<link href="../plugins/css/dataTables.dataTables.min.css" rel="stylesheet">
+    	<!-- Plugin - Toastr -->
+    	<link href="../plugins/css/toastr.css" rel="stylesheet">
+    	<!-- Plugin - Dual Listbox -->
+    	<link href="../plugins/css/bootstrap-duallistbox.css" rel="stylesheet">
+    </head>
+    <body id="body" class="sb-nav-fixed" style="display: none;">
+        <!--begin::Topbar-->
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <!-- Navbar Brand -->
+            <a id="adm_topbar_homepage" class="navbar-brand ps-3" href="#"> Outside Eve </a>
+            <!-- Sidebar Toggle -->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle"> <i class="fas fa-bars"></i> </button>
+            <!-- Navbar Search -->
+            <form class="d-none d-md-inline-block ms-auto me-0 me-md-3 my-2 my-md-0">
+                <!-- <div class="input-group">
+                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                </div> -->
+            </form>
+            <!--begin::User options-->
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    <ul id="adm_user_options" class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown"> </ul>
+                </li>
+            </ul>
+            <!--end::User options-->
+        </nav>
+        <!--end::Topbar-->
+        
+        <div id="layoutSidenav">
+            <!--begin::Sidebar-->
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading"> Menu </div>
+                            <div id="adm_sidebar"> </div>
+                        </div>
+                    </div>
+                    <div class="sb-sidenav-footer">
+                        <div class="small"> Logged in as: </div>
+                        <div id="adm_user"> </div>
+                    </div>
+                </nav>
+            </div>
+            <!--end::Sidebar-->
+            
+            <div id="layoutSidenav_content">
+                <!--begin::Body-->
+                <main>
+                    <div id="adm_body" class="container-fluid px-4">
+                        <h1 class='my-4'> Events </h1>
+                        
+                        <div class='card mb-4'>
+                            <div class='card-header'>
+                                <div class="row" style="display: flex; align-items: center;">
+                                    <div class="col-10">
+                                        <i class='fas fa-users me-1'></i> Events List
+                                    </div>
+                                    <div class="col-2 text-end">
+                                        <button id='button_add' class='btn btn-primary text-white' type='button'> <i class='fa fa-plus'> </i> </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id='adm_content' class='card-body'>
+                                <div class="table-responsive">
+                                    <table id="admin_events_list" class="table table-striped table-hover text-center">
+                                        <thead>
+                                            <tr>
+                                                <th> ID </th>
+                                                <th> Name </th>
+                                                <th> Category </th>
+                                                <th> Location </th>
+                                                <th> Date </th>
+                                                <th> Subscription Limit </th>
+                                                <th> Price (€) </th>
+                                                <th> </th>
+                                                <th> </th>
+                                                <th> </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody> </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                <!--end::Body-->
+                
+                <!--begin::Footer-->
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Your Website 2024 </div>
+                            <div>
+                                <!-- <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a> -->
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+                <!--end::Footer-->
+            </div>
+        </div>
+        
+        <!--begin::Modal - Edit Event-->
+        <div class="modal modal-lg fade" id="admin_events_edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="admin_events_edit_title"> Edit Event </h5>
+                        <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+                    </div>
+                    <div class="modal-body bg-light">
+                        <form id="event_edit_form">
+                            <div class="row">
+                                <div class="col-6">
+                                    <label class="small mb-1" for="event_edit_name"> Name </label>
+                                    <input class="form-control" placeholder="Write here..." type="text" id="event_edit_name" name="event_edit_name">
+                                </div>
+                                <div class="col-6">
+                                    <label class="small mb-1" for="event_edit_category"> Category </label>
+                                    <select class="form-select" id="event_edit_category" name="event_edit_category">
+                                        <option value="0"> Loading options... </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <label class="small mb-1" for="event_edit_detail"> Description </label>
+                                    <textarea class="form-control" style="resize: none;" placeholder="Write here..." id="event_edit_detail" name="event_edit_detail" rows="5"></textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <label class="small mb-1" for="event_edit_address"> Address </label>
+                                    <input class="form-control" placeholder="Write here..." type="text" id="event_edit_address" name="event_edit_address">
+                                </div>
+                                <div class="col-4">
+                                    <label class="small mb-1" for="event_edit_location"> Location </label>
+                                    <select class="form-select" id="event_edit_location" name="event_edit_location">
+                                        <option value="0"> Loading options... </option>
+                                    </select>
+                                </div>
+                                <div class="col-2">
+                                    <label class="small mb-1" for="event_edit_capacity"> Capacity </label>
+                                    <input class="form-control" placeholder="Write here..." type="number" id="event_edit_capacity" name="event_edit_capacity">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <label class="small mb-1" for="event_edit_date"> Date </label>
+                                    <input class="form-control" type="datetime-local" id="event_edit_date" name="event_edit_date">
+                                </div>
+                                <div class="col-4">
+                                    <label class="small mb-1" for="event_edit_subscription_limit"> Subscription limit </label>
+                                    <input class="form-control" type="datetime-local" id="event_edit_subscription_limit" name="event_edit_subscription_limit">
+                                </div>
+                                <div class="col-4">
+                                    <label class="small mb-1" for="event_edit_price"> Price (€) </label>
+                                    <input class="form-control" placeholder="Write here..." type="text" id="event_edit_price" name="event_edit_price">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <hr class="mt-4">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12" id="event_edit_artists_div">
+                                    <label class="small mb-1" for="event_edit_artists"> Artists </label>
+                                    <select class="form-select" multiple="multiple" id="event_edit_artists" name="event_edit_artists">
+                                        
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="event_edit_close" type="button" class="btn btn-outline-secondary"> Cancel </button>
+                        <button id="event_edit_save" type="button" class="btn btn-primary"> Edit event </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end::Modal - Edit Event-->
+        
+        <!--begin::Modal - Add Event-->
+        <div class="modal modal-lg fade" id="admin_events_add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="admin_events_add_title"> Add Event </h5>
+                    </div>
+                    <div class="modal-body bg-light">
+                        <form id="event_add_form">
+                            <div class="row">
+                                <div class="col-12">
+                                    <label class="small mb-1" for="event_add_img"> Image </label>
+                                    <input class="form-control" type="file" id="event_add_img" name="event_add_img">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <label class="small mb-1" for="event_add_name"> Name </label>
+                                    <input class="form-control" placeholder="Write here..." type="text" id="event_add_name" name="event_add_name">
+                                </div>
+                                <div class="col-6">
+                                    <label class="small mb-1" for="event_add_category"> Category </label>
+                                    <select class="form-select" id="event_add_category" name="event_add_category">
+                                        <option value="0"> Loading options... </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <label class="small mb-1" for="event_add_detail"> Description </label>
+                                    <textarea class="form-control" style="resize: none;" placeholder="Write here..." id="event_add_detail" name="event_add_detail" rows="5"></textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <label class="small mb-1" for="event_add_address"> Address </label>
+                                    <input class="form-control" placeholder="Write here..." type="text" id="event_add_address" name="event_add_address">
+                                </div>
+                                <div class="col-4">
+                                    <label class="small mb-1" for="event_add_location"> Location </label>
+                                    <select class="form-select" id="event_add_location" name="event_add_location">
+                                        <option value="0"> Loading options... </option>
+                                    </select>
+                                </div>
+                                <div class="col-2">
+                                    <label class="small mb-1" for="event_add_capacity"> Capacity </label>
+                                    <input class="form-control" placeholder="Write here..." type="number" id="event_add_capacity" name="event_add_capacity">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <label class="small mb-1" for="event_add_date"> Date </label>
+                                    <input class="form-control" type="datetime-local" id="event_add_date" name="event_add_date">
+                                </div>
+                                <div class="col-4">
+                                    <label class="small mb-1" for="event_add_subscription_limit"> Subscription limit </label>
+                                    <input class="form-control" type="datetime-local" id="event_add_subscription_limit" name="event_add_subscription_limit">
+                                </div>
+                                <div class="col-4">
+                                    <label class="small mb-1" for="event_add_price"> Price (€) </label>
+                                    <input class="form-control" placeholder="Write here..." type="text" id="event_add_price" name="event_add_price">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <hr class="mt-4">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12" id="event_subs_subscribers_div">
+                                    <!--<label class="small mb-1" for="event_add_artists"> Artists </label>
+                                    <select class="form-select" multiple="multiple" id="event_add_artists" name="event_add_artists">
+                                        
+                                    </select>-->
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="event_add_close" type="button" class="btn btn-outline-secondary"> Cancel </button>
+                        <button id="event_add_save" type="button" class="btn btn-primary"> Create event </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end::Modal - Add Event-->
+        
+        <!--begin::Modal - Delete Event-->
+        <div class="modal fade" id="admin_events_delete" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="admin_events_delete_title"> Delete Event </h5>
+                    </div>
+                    <div class="modal-body bg-light">
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <i class="fas fa-exclamation-triangle fa-6x text-warning"> </i>
+                                <br><br><br>
+                                <h4 id="admin_events_delete_question"> Are you sure you want to delete the event with id? </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="mx-auto">
+                            <button id="event_delete_no" type="button" class="btn btn-secondary" style="width: 100px"> No </button>
+                            <button id="event_delete_yes" type="button" class="btn btn-danger" style="width: 100px"> Yes </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end::Modal - Delete Event-->
+        
+        <!--begin::Modal - Subscribers-->
+        <div class="modal modal-xl fade" id="admin_events_subs" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="col-8">
+                            <h5 class="modal-title" id="admin_events_subs_title"> Event Subscribers </h5>
+                        </div>
+                        <div class="col-4 text-end">
+                            <div class="row">
+                                <div class="col">
+                                    <button id="event_subs_export" type="button" class="btn btn-secondary"> Export subscriber list </button>
+                                </div>
+                                <div class="col">
+                                    <button id="event_subs_change" type="button" class="btn btn-primary"> Add/Remove Subs </button>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body bg-light">
+
+                        <div class="row">
+                            <div class="table-responsive">
+                                <table id="admin_events_subs_list" class="table table-striped table-hover text-center">
+                                    <thead>
+                                        <tr>
+                                            <th> ID </th>
+                                            <th> Name </th>
+                                            <th> Username </th>
+                                            <th> Email </th>
+                                            <th> Register Date </th>
+                                            <th> Role </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody> </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="event_subs_close" type="button" class="btn btn-outline-secondary"> Close </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end::Modal - Subscribers-->
+        
+        <!--begin::Modal - Add/Remove Subscribers-->
+        <div class="modal modal-xl fade" id="admin_events_subs_change" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="col-9">
+                            <h5 class="modal-title" id="admin_events_subs_change_title"> Event Subscribers </h5>
+                        </div>
+                        <div class="col-3 text-end"> </div>
+                    </div>
+                    <div class="modal-body bg-light">
+                        <form id="event_subs_change_form">
+                            <div class="row">
+                                <div class="col-12" id="event_subs_change_div">
+                                    
+                                    <!--<label class="small mb-1" for="event_subs_artists"> Artists </label>
+                                    <select class="form-select" multiple="multiple" id="event_subs_artists" name="event_subs_artists">
+                                        
+                                    </select>-->
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="event_subs_change_close" type="button" class="btn btn-outline-secondary"> Cancel </button>
+                        <button id="event_subs_change_save" type="button" class="btn btn-primary"> Save subscribers </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end::Modal - Add/Remove Subscribers-->
+        
+    	<!-- Bootstrap 5.3.3 - https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js -->
+        <script src="../assets/js/bootstrap.bundle.min.js" ></script>
+    	<!-- Font Awesome Icons - https://use.fontawesome.com/releases/v6.5.2/js/all.js -->
+        <script src="../assets/js/all.js" crossorigin="anonymous"> </script>
+        <!-- jQuery 3.7.1 - https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js -->
+        <script src="../assets/js/jquery.min.js"> </script>
+        <!-- Script - Toggle Sidebar -->
+    	<script src="../custom/js/dashboard.js"> </script>
+        <!-- Script - Custom -->
+        <script src="../controllers/admin_events.js"></script>
+        <!-- Plugin - Datatable -->
+        <script src="../plugins/js/dataTables.min.js"></script>
+        <!-- Plugin - Toastr -->
+        <script src="../plugins/js/toastr.js"></script>
+        <!-- Plugin - Dual Listbox -->
+        <script src="../plugins/js/jquery.bootstrap-duallistbox.js"></script>
+    </body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> Dashboard - Administration </title>
+    	<!-- Stylesheet - Dashboard -->
+    	<link href="../custom/css/dashboard.css" rel="stylesheet">
+    </head>
+    <body id="body" class="sb-nav-fixed" style="display: none;">
+        <!--begin::Topbar-->
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <!-- Navbar Brand -->
+            <a id="adm_topbar_homepage" class="navbar-brand ps-3" href="#"> Outside Eve </a>
+            <!-- Sidebar Toggle -->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle"> <i class="fas fa-bars"></i> </button>
+            <!-- Navbar Search -->
+            <form class="d-none d-md-inline-block ms-auto me-0 me-md-3 my-2 my-md-0">
+                <!-- <div class="input-group">
+                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                </div> -->
+            </form>
+            <!--begin::User options-->
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    <ul id="adm_user_options" class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown"> </ul>
+                </li>
+            </ul>
+            <!--end::User options-->
+        </nav>
+        <!--end::Topbar-->
+        
+        <div id="layoutSidenav">
+            <!--begin::Sidebar-->
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading"> Menu </div>
+                            <div id="adm_sidebar"> </div>
+                        </div>
+                    </div>
+                    <div class="sb-sidenav-footer">
+                        <div class="small"> Logged in as: </div>
+                        <div id="adm_user"> </div>
+                    </div>
+                </nav>
+            </div>
+            <!--end::Sidebar-->
+            
+            <div id="layoutSidenav_content">
+                <!--begin::Body-->
+                <main>
+                    <div id="adm_body" class="container-fluid px-4">
+                        <h1 class="mt-4">Dashboard</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item active">Dashboard</li>
+                        </ol>
+                        <div class="row">
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-secondary text-white mb-4">
+                                    <div class="card-body"><i class='fa-solid fa-masks-theater me-2'></i>Artists</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="./admin_artists.html">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-secondary text-white mb-4">
+                                    <div class="card-body"><i class='fa-solid fa-icons me-2'></i>Categories</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="./admin_categories.html">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-secondary text-white mb-4">
+                                    <div class="card-body"><i class='fas fa-list-ul me-2'></i>Events</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="./admin_events.html">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-secondary text-white mb-4">
+                                    <div class="card-body"><i class='fas fa-users me-2'></i>Users</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="./admin_users.html">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+                <!--end::Body-->
+                
+                <!--begin::Footer-->
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Your Website 2024 </div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+                <!--end::Footer-->
+            </div>
+        </div>
+        
+    	<!-- Bootstrap 5.3.3 - https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js -->
+        <script src="../assets/js/bootstrap.bundle.min.js" ></script>
+    	<!-- Font Awesome Icons - https://use.fontawesome.com/releases/v6.5.2/js/all.js -->
+        <script src="../assets/js/all.js" crossorigin="anonymous"> </script>
+        <!-- jQuery 3.7.1 - https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js -->
+        <script src="../assets/js/jquery.min.js"> </script>
+        <!-- Script - Toggle Sidebar -->
+    	<script src="../custom/js/dashboard.js"> </script>
+        <!-- Script - Custom -->
+        <script src="../controllers/admin.js"></script>
+    </body>
+</html>
